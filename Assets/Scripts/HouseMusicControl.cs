@@ -9,8 +9,8 @@ public class HouseMusicControl : MonoBehaviour
 
     public AudioMixerSnapshot outOfHouse;
     public AudioMixerSnapshot inHouse;
-    public AudioClip[] stings;
-    public AudioSource stingSource;
+    //public AudioClip[] stings;
+    //public AudioSource stingSource;
     public float bpm = 128;
 
 
@@ -22,34 +22,31 @@ public class HouseMusicControl : MonoBehaviour
     void Start()
     {
         m_QuarterNote = 60 / bpm;
-        m_TransitionIn = m_QuarterNote;
-        m_TransitionOut = m_QuarterNote * 32;
+        m_TransitionIn = m_QuarterNote * 8;
+        m_TransitionOut = m_QuarterNote * 8;
 
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("HouseZone"))
+       
+        
+        
+        if (other.transform.root.name == "[VRTK_SDKManager]")
         {
+            Debug.Log("JUST ENTERED: " + other.gameObject.transform.parent.gameObject.name);
             inHouse.TransitionTo(m_TransitionIn);
-            PlaySting();
         }
+        
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("HouseZone"))
+        if (other.transform.root.name == "[VRTK_SDKManager]")
         {
             outOfHouse.TransitionTo(m_TransitionOut);
         }
     }
-
-    void PlaySting()
-    {
-        int randClip = Random.Range(0, stings.Length);
-        stingSource.clip = stings[randClip];
-        stingSource.Play();
-    }
-
+    
 
 }

@@ -58,6 +58,7 @@ public class TableChecker : MonoBehaviour
             }
         }
         Debug.Log("ALL THE TABLES ARE IN THE RIGHT SPOTS !!!!!! HORRRAYYYYYYYY!!!!!!");
+
         return true;
     }
 

@@ -8,12 +8,17 @@ public class DoorControl : MonoBehaviour {
     [HideInInspector]
     public bool isClosed = false;
     [HideInInspector]
+    public bool alreadyPlayed = false;
+    [HideInInspector]
     public bool isRoomFinished = false;
     [SerializeField]
     public GameObject doorToControl;
+    [SerializeField]
+    public AudioSource doorClose;
+   
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         doorToControl.SetActive(false);
         /*
         foreach(Transform child in transform)
@@ -30,8 +35,16 @@ public class DoorControl : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("KIIIIIIIIIISSSSSSSSSSSSSSS EMMMMMMMMMMMAKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
-        doorToControl.SetActive(true);
+
+        if(other.transform.root.name == "[VRTK_SDKManager]")
+        {
+            doorToControl.SetActive(true);
+            if(alreadyPlayed == false)
+            {
+                doorClose.Play();
+            }
+            alreadyPlayed = true;
+        }
+       
     }
-
-
 }
