@@ -18,6 +18,7 @@ Abby, Ami Tyler:
   - Designed Houses in Maya
   - Designed 3D Objects in Maya
   - Added a terrain and skybox
+  
 Nadim:
   - Create code to make objects interactive
   - Find the correct compatible libraries to work with 
@@ -33,3 +34,8 @@ Nadim:
  ## Manual:
  
  The game is designed to be a free ranging experience which allows the players to explore. Movement is done through the joysticks with the addded feature of teleportation upon pressing the joystick. All items that can be picked up and used will be highlighted when the hand is in contact with the object.
+
+
+## Issues:
+
+There are some known issues with using unity projects and github. Upon cloning this repository, an error will pop out in the unity editor indicating that some scripts are missing even though they aren't in the actual repo.
