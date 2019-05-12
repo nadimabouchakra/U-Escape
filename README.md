@@ -7,14 +7,14 @@ This is an Escape The Room game developed by Nadim and designed by Abby, Tyler a
 
 ## External Sources:
 
-We used some external libraries to help us build the game:
+This game used some external libraries to help us build the game:
 - VRTK 3.3.0 
 - Oculus Utilities
 
 
 ## Division of labor:
 
-Abby, Ami Tyler:
+AR, Ami, Tyler:
   - Designed Houses in Maya
   - Designed 3D Objects in Maya
   - Added a terrain and skybox
