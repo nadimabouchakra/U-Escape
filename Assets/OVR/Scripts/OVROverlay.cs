@@ -23,8 +23,10 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
-using VR = UnityEngine.VR;
-
+using VR = UnityEngine.XR;
+
+
+
 /// <summary>
 /// Add OVROverlay script to an object with an optional mesh primitive
 /// rendered as a TimeWarp overlay instead by drawing it into the eye buffer.
@@ -54,15 +56,19 @@ using VR = UnityEngine.VR;
 ///			* Note: if transform.position's magnitude is greater than 1, which will cause some cube map pixel always invisible 
 ///					Which is usually not what people wanted, we don't kill the ability for developer to do so here, but will warn out.
 /// </summary>
-
+
+
 public class OVROverlay : MonoBehaviour
 {
 	public enum OverlayShape
 	{
 		Quad = 0,       // Display overlay as a quad
-		Cylinder = 1,   // [Mobile Only][Experimental] Display overlay as a cylinder, Translation only works correctly with vrDriver 1.04 or above 
-		Cubemap = 2,    // Display overlay as a cube map
-		OffcenterCubemap = 4,    // Display overlay as a cube map with a center offset 
+		Cylinder = 1,   // [Mobile Only][Experimental] Display overlay as a cylinder, Translation only works correctly with vrDriver 1.04 or above 
+
+		Cubemap = 2,    // Display overlay as a cube map
+
+		OffcenterCubemap = 4,    // Display overlay as a cube map with a center offset 
+
 	}
 
 	public enum OverlayType
@@ -107,9 +113,9 @@ public class OVROverlay : MonoBehaviour
 	/// Use this function to set texture and texNativePtr when app is running 
 	/// GetNativeTexturePtr is a slow behavior, the value should be pre-cached 
 	/// </summary>
-	public void OverrideOverlayTextureInfo(Texture srcTexture, IntPtr nativePtr, VR.VRNode node)
+	public void OverrideOverlayTextureInfo(Texture srcTexture, IntPtr nativePtr, VR.XRNode node)
 	{
-		int index = (node == VR.VRNode.RightEye) ? 1 : 0;
+		int index = (node == VR.XRNode.RightEye) ? 1 : 0;
 
 		textures[index] = srcTexture;
 		cachedTextures[index] = srcTexture;
@@ -214,26 +220,39 @@ public class OVROverlay : MonoBehaviour
 		OVRPose pose = (headLocked) ? transform.ToHeadSpacePose() : transform.ToTrackingSpacePose();
 		Vector3 scale = transform.lossyScale;
 		for (int i = 0; i < 3; ++i)
-			scale[i] /= Camera.current.transform.lossyScale[i];
-
+			scale[i] /= Camera.current.transform.lossyScale[i];
+
+
+
 #if !UNITY_ANDROID
 		if (currentOverlayShape == OverlayShape.Cubemap)
 		{
 			pose.position = Camera.current.transform.position;
 		}
 #endif
-		// Pack the offsetCenter directly into pose.position for offcenterCubemap
-		if (currentOverlayShape == OverlayShape.OffcenterCubemap)
-		{
-			pose.position = transform.position;
-
-			if ( pose.position.magnitude > 1.0f )
-			{
+		// Pack the offsetCenter directly into pose.position for offcenterCubemap
+
+		if (currentOverlayShape == OverlayShape.OffcenterCubemap)
+
+		{
+
+			pose.position = transform.position;
+
+
+
+			if ( pose.position.magnitude > 1.0f )
+
+			{
+
 				Debug.LogWarning("your cube map center offset's magnitude is greater than 1, which will cause some cube map pixel always invisible .");
-			}
-		}
-
-		// Cylinder overlay sanity checking
+			}
+
+		}
+
+
+
+		// Cylinder overlay sanity checking
+
 		if (currentOverlayShape == OverlayShape.Cylinder)
 		{
 			float arcAngle = scale.x / scale.z / (float)Math.PI * 180.0f;

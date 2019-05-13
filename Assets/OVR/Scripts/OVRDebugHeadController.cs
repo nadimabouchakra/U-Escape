@@ -20,7 +20,7 @@ limitations under the License.
 ************************************************************************************/
 
 using UnityEngine;
-using VR = UnityEngine.VR;
+using VR = UnityEngine.XR;
 using System.Collections;
 
 /// <summary>
@@ -90,7 +90,7 @@ public class OVRDebugHeadController : MonoBehaviour
 			transform.position += fwdMove + strafeMove;
 		}
 
-		if ( !VR.VRDevice.isPresent && ( AllowYawLook || AllowPitchLook ) )
+		if ( !VR.XRDevice.isPresent && ( AllowYawLook || AllowPitchLook ) )
 		{
 			Quaternion r = transform.rotation;
 			if ( AllowYawLook )

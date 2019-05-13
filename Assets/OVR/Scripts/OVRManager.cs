@@ -27,7 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VR = UnityEngine.VR;
+using VR = UnityEngine.XR;
 
 /// <summary>
 /// Configuration data for Oculus virtual reality.
@@ -750,21 +750,21 @@ public class OVRManager : MonoBehaviour
 
 		if (enableAdaptiveResolution)
 		{
-            if (VR.VRSettings.renderScale < maxRenderScale)
+            if (VR.XRSettings.eyeTextureResolutionScale < maxRenderScale)
             {
                 // Allocate renderScale to max to avoid re-allocation
-                VR.VRSettings.renderScale = maxRenderScale;
+                VR.XRSettings.eyeTextureResolutionScale = maxRenderScale;
             }
             else
             {
                 // Adjusting maxRenderScale in case app started with a larger renderScale value
-                maxRenderScale = Mathf.Max(maxRenderScale, VR.VRSettings.renderScale);
+                maxRenderScale = Mathf.Max(maxRenderScale, VR.XRSettings.eyeTextureResolutionScale);
             }
             minRenderScale = Mathf.Min(minRenderScale, maxRenderScale);
-            float minViewportScale = minRenderScale / VR.VRSettings.renderScale;
-            float recommendedViewportScale = OVRPlugin.GetEyeRecommendedResolutionScale() / VR.VRSettings.renderScale;
+            float minViewportScale = minRenderScale / VR.XRSettings.eyeTextureResolutionScale;
+            float recommendedViewportScale = OVRPlugin.GetEyeRecommendedResolutionScale() / VR.XRSettings.eyeTextureResolutionScale;
             recommendedViewportScale = Mathf.Clamp(recommendedViewportScale, minViewportScale, 1.0f);
-            VR.VRSettings.renderViewportScale = recommendedViewportScale;
+            VR.XRSettings.renderViewportScale = recommendedViewportScale;
         }
 #endif
 

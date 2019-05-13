@@ -288,12 +288,13 @@ public class OVRLint : EditorWindow
 		}
 #endif
 
-		if ((!PlayerSettings.MTRendering || !PlayerSettings.mobileMTRendering))
+		if ((!PlayerSettings.MTRendering || !PlayerSettings.GetMobileMTRendering(BuildTargetGroup.Android)))
 		{
 		    AddFix ("Optimize MT Rendering", "For CPU performance, please enable multithreaded rendering.", delegate(UnityEngine.Object obj, bool last, int selected)
 		    {
-				PlayerSettings.MTRendering = PlayerSettings.mobileMTRendering = true;
-			}, null, "Fix");
+                PlayerSettings.SetMobileMTRendering(BuildTargetGroup.Android, true);
+                PlayerSettings.MTRendering = true;
+            }, null, "Fix");
 		}
 
 #if UNITY_5_5_OR_NEWER
@@ -363,7 +364,7 @@ public class OVRLint : EditorWindow
 		for (int i = 0; i < lights.Length; ++i) 
 		{
 #if UNITY_5_4_OR_NEWER
-			if (lights [i].type != LightType.Directional && !lights [i].isBaked && IsLightBaked(lights[i]))
+			if (lights [i].type != LightType.Directional && !lights [i].bakingOutput.isBaked && IsLightBaked(lights[i]))
 			{
 				AddFix ("Optimize Light Baking", "For GPU performance, please bake lightmaps to avoid realtime lighting cost.", delegate(UnityEngine.Object obj, bool last, int selected) 
 				{
@@ -548,11 +549,11 @@ public class OVRLint : EditorWindow
 			}, null, "Fix");
 		}
 
-		if (UnityEngine.VR.VRSettings.renderScale > 1.5)
+		if (UnityEngine.XR.XRSettings.eyeTextureResolutionScale > 1.5)
 		{
 			AddFix ("Optimize Render Scale", "For CPU performance, please don't use render scale over 1.5.", delegate(UnityEngine.Object obj, bool last, int selected)
 			{
-				UnityEngine.VR.VRSettings.renderScale = 1.5f;
+				UnityEngine.XR.XRSettings.eyeTextureResolutionScale = 1.5f;
 			}, null, "Fix");
 		}
 	}

@@ -22,7 +22,7 @@ limitations under the License.
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using VR = UnityEngine.VR;
+using VR = UnityEngine.XR;
 
 //-------------------------------------------------------------------------------------
 /// <summary>
@@ -364,7 +364,7 @@ public class OVRDebugInfo : MonoBehaviour
     /// </summary>
     void UpdateFOV()
     {
-        OVRDisplay.EyeRenderDesc eyeDesc = OVRManager.display.GetEyeRenderDesc(VR.VRNode.LeftEye);
+        OVRDisplay.EyeRenderDesc eyeDesc = OVRManager.display.GetEyeRenderDesc(VR.XRNode.LeftEye);
         strFOV = System.String.Format("FOV (deg): {0:F3}", eyeDesc.fov.y);   
     }
 
@@ -373,10 +373,10 @@ public class OVRDebugInfo : MonoBehaviour
     /// </summary>
     void UpdateResolutionEyeTexture()
     {
-		OVRDisplay.EyeRenderDesc leftEyeDesc = OVRManager.display.GetEyeRenderDesc(VR.VRNode.LeftEye);
-		OVRDisplay.EyeRenderDesc rightEyeDesc = OVRManager.display.GetEyeRenderDesc(VR.VRNode.RightEye);
+		OVRDisplay.EyeRenderDesc leftEyeDesc = OVRManager.display.GetEyeRenderDesc(VR.XRNode.LeftEye);
+		OVRDisplay.EyeRenderDesc rightEyeDesc = OVRManager.display.GetEyeRenderDesc(VR.XRNode.RightEye);
 
-		float scale = VR.VRSettings.renderScale;
+		float scale = VR.XRSettings.eyeTextureResolutionScale;
         float w = (int)(scale * (float)(leftEyeDesc.resolution.x + rightEyeDesc.resolution.x));
         float h = (int)(scale * (float)Mathf.Max(leftEyeDesc.resolution.y, rightEyeDesc.resolution.y));
 
