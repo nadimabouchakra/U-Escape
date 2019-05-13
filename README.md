@@ -39,3 +39,6 @@ Nadim:
 ## Issues:
 
 There are some known issues with using unity projects and github. Upon cloning this repository, an error will pop out in the unity editor indicating that some scripts are missing even though they aren't in the actual repo.
+
+## Fixes
+I updated the game to be compatible with Unity2018.3
